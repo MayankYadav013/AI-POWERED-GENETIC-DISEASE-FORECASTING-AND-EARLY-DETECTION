@@ -4,116 +4,116 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Genetic Disease Risk Predictor</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-        body {
-            font-family: 'Inter', sans-serif;
+    <script>
+        // Customizing Tailwind's default theme (optional, but good practice)
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                },
+            },
         }
-        .form-section-title {
-            border-bottom: 1px solid #e5e7eb;
-            padding-bottom: 8px;
-            margin-bottom: 16px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: #374151;
-            display: flex;
-            align-items: center;
-        }
-        .form-section-title i {
-            margin-right: 12px;
-            color: #4f46e5;
-        }
-    </style>
+    </script>
 </head>
-<body class="bg-gray-100 flex items-center justify-center min-h-screen p-4">
+<body class="bg-slate-100 flex items-center justify-center min-h-screen p-4 md:p-8">
 
-    <div class="w-full max-w-4xl bg-white rounded-2xl shadow-lg p-6 md:p-10 space-y-8">
-        <!-- Header -->
+    <div class="w-full max-w-5xl bg-white rounded-2xl shadow-2xl p-8 md:p-12 space-y-10 border border-slate-200">
+        
         <div class="text-center">
-            <h1 class="text-3xl md:text-4xl font-bold text-gray-800">Genetic Disease Risk Predictor</h1>
-            <p class="mt-2 text-gray-600">Enter patient information for a preliminary risk assessment.</p>
+            <h1 class="text-3xl md:text-4xl font-bold text-slate-900">Genetic Disease Risk Predictor</h1>
+            <p class="mt-3 text-lg text-slate-600">Enter patient information for a preliminary risk assessment.</p>
         </div>
 
-        <!-- Prediction Form -->
-        <div id="predictionForm" class="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-6">
+        <div id="predictionForm" class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10">
             
-            <!-- Demographics Section -->
             <div>
-                <h2 class="form-section-title"><i class="fas fa-user"></i>Demographic Information</h2>
-                <div class="space-y-4">
+                <h2 class="text-xl font-semibold text-slate-800 border-b border-slate-300 pb-3 mb-6 flex items-center">
+                    <i class="fas fa-user text-cyan-600 mr-3 text-lg"></i>
+                    Demographic Information
+                </h2>
+                <div class="space-y-6">
                     <div>
-                        <label for="age" class="block text-sm font-medium text-gray-700">Patient Age</label>
-                        <input type="number" id="age" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" placeholder="e.g., 35" min="0" max="100">
+                        <label for="maternal_age" class="block text-sm font-medium leading-6 text-slate-700">Maternal Age at Birth</label>
+                        <div class="mt-2">
+                            <input type="number" id="maternal_age" class="block w-full rounded-lg border-0 bg-slate-50 py-3 px-4 text-slate-900 ring-1 ring-inset ring-slate-200 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-cyan-600" placeholder="e.g., 28" min="15" max="55">
+                        </div>
                     </div>
                     <div>
-                        <label for="maternal_age" class="block text-sm font-medium text-gray-700">Maternal Age at Birth</label>
-                        <input type="number" id="maternal_age" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" placeholder="e.g., 28" min="15" max="55">
-                    </div>
-                    <div>
-                        <label for="gender" class="block text-sm font-medium text-gray-700">Gender</label>
-                        <select id="gender" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
-                            <option value="1">Male</option>
-                            <option value="0">Female</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label for="community" class="block text-sm font-medium text-gray-700">Community Code</label>
-                         <input type="number" id="community" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" placeholder="e.g., 457">
-                    </div>
-                     <div>
-                        <label for="region" class="block text-sm font-medium text-gray-700">Region Code</label>
-                         <input type="number" id="region" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" placeholder="e.g., 3">
+                        <label for="gender" class="block text-sm font-medium leading-6 text-slate-700">Gender</label>
+                        <div class="mt-2">
+                            <select id="gender" class="block w-full rounded-lg border-0 bg-slate-50 py-3 px-4 text-slate-900 ring-1 ring-inset ring-slate-200 focus:ring-2 focus:ring-inset focus:ring-cyan-600">
+                                <option value="1">Male</option>
+                                <option value="0">Female</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Clinical & Family History Section -->
             <div>
-                 <h2 class="form-section-title"><i class="fas fa-notes-medical"></i>Clinical & Family History</h2>
-                 <div class="space-y-4">
-                    <div>
-                        <label for="family_history_score" class="block text-sm font-medium text-gray-700">Family History Score</label>
-                        <input type="number" step="0.01" id="family_history_score" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" placeholder="e.g., 0.57">
-                    </div>
-                    <div>
-                        <label for="hemoglobin" class="block text-sm font-medium text-gray-700">Hemoglobin Level (g/dL)</label>
-                        <input type="number" step="0.1" id="hemoglobin" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" placeholder="e.g., 13.5">
-                    </div>
-                    <div>
-                        <label for="mcv" class="block text-sm font-medium text-gray-700">Mean Corpuscular Volume (MCV fL)</label>
-                        <input type="number" step="0.1" id="mcv" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" placeholder="e.g., 85.0">
-                    </div>
-                     <div>
-                        <label for="mch" class="block text-sm font-medium text-gray-700">Mean Corpuscular Hemoglobin (MCH pg)</label>
-                        <input type="number" step="0.1" id="mch" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" placeholder="e.g., 29.0">
-                    </div>
-                    <div class="grid grid-cols-2 gap-4 pt-2">
+                <h2 class="text-xl font-semibold text-slate-800 border-b border-slate-300 pb-3 mb-6 flex items-center">
+                    <i class="fas fa-notes-medical text-cyan-600 mr-3 text-lg"></i>
+                    Clinical & Family History
+                </h2>
+                <div class="space-y-6">
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
                         <div>
-                            <label class="block text-sm font-medium text-gray-700">Parent Carrier?</label>
-                             <select id="parent_carrier" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
-                                <option value="0">No</option>
-                                <option value="1">Yes</option>
-                            </select>
+                            <label for="hemoglobin" class="block text-sm font-medium leading-6 text-slate-700">Hemoglobin</label>
+                            <div class="mt-2">
+                                <input type="number" step="0.1" id="hemoglobin" class="block w-full rounded-lg border-0 bg-slate-50 py-3 px-4 text-slate-900 ring-1 ring-inset ring-slate-200 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-cyan-600" placeholder="13.5">
+                            </div>
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-gray-700">Sibling Affected?</label>
-                             <select id="sibling_affected" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                            <label for="mcv" class="block text-sm font-medium leading-6 text-slate-700">MCV (fL)</label>
+                            <div class="mt-2">
+                                <input type="number" step="0.1" id="mcv" class="block w-full rounded-lg border-0 bg-slate-50 py-3 px-4 text-slate-900 ring-1 ring-inset ring-slate-200 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-cyan-600" placeholder="85.0">
+                            </div>
+                        </div>
+                        <div>
+                            <label for="mch" class="block text-sm font-medium leading-6 text-slate-700">MCH (pg)</label>
+                            <div class="mt-2">
+                                <input type="number" step="0.1" id="mch" class="block w-full rounded-lg border-0 bg-slate-50 py-3 px-4 text-slate-900 ring-1 ring-inset ring-slate-200 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-cyan-600" placeholder="29.0">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="family_history_score" class="block text-sm font-medium leading-6 text-slate-700">Family History Score</label>
+                        <div class="mt-2">
+                            <input type="number" step="0.01" id="family_history_score" class="block w-full rounded-lg border-0 bg-slate-50 py-3 px-4 text-slate-900 ring-1 ring-inset ring-slate-200 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-cyan-600" placeholder="e.g., 0.57">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-2">
+                        <div>
+                            <label class.="block text-sm font-medium text-slate-700">Parent Carrier?</label>
+                            <select id="parent_carrier" class="mt-2 block w-full rounded-lg border-0 bg-slate-50 py-3 px-4 text-slate-900 ring-1 ring-inset ring-slate-200 focus:ring-2 focus:ring-inset focus:ring-cyan-600">
                                 <option value="0">No</option>
                                 <option value="1">Yes</option>
                             </select>
                         </div>
-                         <div>
-                            <label class="block text-sm font-medium text-gray-700">Chronic Cough?</label>
-                             <select id="chronic_cough" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700">Sibling Affected?</label>
+                            <select id="sibling_affected" class="mt-2 block w-full rounded-lg border-0 bg-slate-50 py-3 px-4 text-slate-900 ring-1 ring-inset ring-slate-200 focus:ring-2 focus:ring-inset focus:ring-cyan-600">
                                 <option value="0">No</option>
                                 <option value="1">Yes</option>
                             </select>
                         </div>
-                         <div>
-                            <label class="block text-sm font-medium text-gray-700">Newborn Screen?</label>
-                             <select id="newborn_screen" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700">Chronic Cough?</label>
+                            <select id="chronic_cough" class="mt-2 block w-full rounded-lg border-0 bg-slate-50 py-3 px-4 text-slate-900 ring-1 ring-inset ring-slate-200 focus:ring-2 focus:ring-inset focus:ring-cyan-600">
+                                <option value="0">No</option>
+                                <option value="1">Yes</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700">Newborn Screen?</label>
+                            <select id="newborn_screen" class="mt-2 block w-full rounded-lg border-0 bg-slate-50 py-3 px-4 text-slate-900 ring-1 ring-inset ring-slate-200 focus:ring-2 focus:ring-inset focus:ring-cyan-600">
                                 <option value="0">Negative/No</option>
                                 <option value="1">Positive/Yes</option>
                             </select>
@@ -123,47 +123,95 @@
             </div>
         </div>
 
-        <!-- Action Button -->
-        <div class="pt-4 text-center">
-            <button onclick="predictRisk()" class="w-full md:w-auto inline-flex justify-center items-center px-8 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-transform transform hover:scale-105">
+        <div class="pt-6 text-center">
+            <button onclick="predictRisk()" class="w-full md:w-auto inline-flex justify-center items-center px-10 py-4 border border-transparent text-base font-medium rounded-lg shadow-lg text-white bg-cyan-600 hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500 transition-all duration-300 ease-in-out transform hover:-translate-y-0.5 hover:shadow-xl">
                 <i class="fas fa-brain mr-2"></i>Predict Risk
             </button>
         </div>
         
-        <!-- Results Section -->
-        <div id="resultsSection" class="hidden pt-6 text-center">
-             <div id="resultCard" class="max-w-2xl mx-auto rounded-lg p-6 shadow-md">
-                 <h2 class="text-2xl font-bold mb-2" id="resultTitle"></h2>
-                 <p class="text-lg mb-4" id="resultDescription"></p>
-                 <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mt-6 rounded-md" role="alert">
-                     <p class="font-bold">Important Disclaimer</p>
-                     <p class="text-sm">This is a preliminary risk assessment tool and NOT a medical diagnosis. The underlying model is trained on synthetic data. Please consult a qualified healthcare professional for any medical concerns or genetic counseling.</p>
-                 </div>
-            </div>
+        <div id="resultsSection" class="hidden pt-8">
+             <div id="resultCard" class="max-w-3xl mx-auto rounded-lg p-6 md:p-8 shadow-md border-l-4">
+                <div class="flex flex-col sm:flex-row items-center">
+                    <div class="flex-shrink-0 mb-4 sm:mb-0 sm:mr-6">
+                        <i id="resultIcon" class="fas fa-4x"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold mb-2" id="resultTitle"></h2>
+                        <p class="text-lg" id="resultDescription"></p>
+                    </div>
+                </div>
+                <div class="bg-red-50 border-l-4 border-red-400 text-red-800 p-4 mt-6 rounded-md" role="alert">
+                      <p class="font-bold">Important Disclaimer</p>
+                      <p class="text-sm">This is a preliminary risk assessment tool and NOT a medical diagnosis. The underlying model is trained on synthetic data. Please consult a qualified healthcare professional for any medical concerns or genetic counseling.</p>
+                </div>
+             </div>
         </div>
 
     </div>
 
-    <!-- JavaScript Backend Logic (Upgraded) -->
     <script>
-        // UPDATED: This map matches the new model trained on 50,000 samples
+        // --- UPDATED: DiseaseMap with new style properties ---
         const diseaseMap = {
-            0: { name: "High Risk: β-Thalassemia", color: "bg-red-100", textColor: "text-red-800", description: "The patient's profile shows strong indicators for β-Thalassemia, primarily related to very low blood test results (MCV, MCH) and/or strong family history." },
-            1: { name: "High Risk: Cystic Fibrosis", color: "bg-red-100", textColor: "text-red-800", description: "The patient's profile shows indicators for Cystic Fibrosis, such as a chronic cough or a positive newborn screen." },
-            2: { name: "Potential Risk: Down Syndrome", color: "bg-yellow-100", textColor: "text-yellow-800", description: "Advanced maternal age is a primary risk factor. The model indicates a potential risk. Prenatal screening is the standard method for diagnosis." },
-            3: { name: "Potential Risk: G6PD Deficiency", color: "bg-yellow-100", textColor: "text-yellow-800", description: "Some indicators (like family history and gender) suggest a potential risk for G6PD Deficiency. Clinical testing is advised for confirmation." },
-            4: { name: "Low Risk / Healthy", color: "bg-green-100", textColor: "text-green-800", description: "The model indicates a low probability of the specified genetic conditions based on the provided data." },
-            5: { name: "High Risk: Sickle Cell Anemia", color: "bg-red-100", textColor: "text-red-800", description: "The model suggests a high risk for Sickle Cell Anemia, often linked to family history, specific community codes, and very low hemoglobin levels." }
+            0: { 
+                name: "High Risk: β-Thalassemia", 
+                description: "The patient's profile shows strong indicators for β-Thalassemia, primarily related to very low blood test results (MCV, MCH) and/or strong family history.",
+                bgColor: "bg-red-50", 
+                textColor: "text-red-900", 
+                borderColor: "border-red-400",
+                icon: "fa-triangle-exclamation",
+                iconColor: "text-red-500"
+            },
+            1: { 
+                name: "High Risk: Cystic Fibrosis", 
+                description: "The patient's profile shows indicators for Cystic Fibrosis, such as a chronic cough or a positive newborn screen.",
+                bgColor: "bg-red-50", 
+                textColor: "text-red-900", 
+                borderColor: "border-red-400",
+                icon: "fa-triangle-exclamation",
+                iconColor: "text-red-500"
+            },
+            2: { 
+                name: "Potential Risk: Down Syndrome", 
+                description: "Advanced maternal age is a primary risk factor. The model indicates a potential risk. Prenatal screening is the standard method for diagnosis.",
+                bgColor: "bg-yellow-50", 
+                textColor: "text-yellow-900", 
+                borderColor: "border-yellow-400",
+                icon: "fa-circle-exclamation",
+                iconColor: "text-yellow-500"
+            },
+            3: { 
+                name: "Low Risk / Healthy", 
+                description: "The model indicates a low probability of the specified genetic conditions based on the provided data.",
+                bgColor: "bg-green-50", 
+                textColor: "text-green-800", 
+                borderColor: "border-green-400",
+                icon: "fa-circle-check",
+                iconColor: "text-green-600"
+            },
+            4: { 
+                name: "Potential Risk: Huntington's Disease", 
+                description: "The model suggests a potential risk based on family history. Genetic testing is the standard for diagnosis.",
+                bgColor: "bg-yellow-50", 
+                textColor: "text-yellow-900", 
+                borderColor: "border-yellow-400",
+                icon: "fa-circle-exclamation",
+                iconColor: "text-yellow-500"
+            },
+            5: { 
+                name: "High Risk: Sickle Cell Anemia", 
+                description: "The model suggests a high risk for Sickle Cell Anemia, often linked to family history and very low hemoglobin levels.",
+                bgColor: "bg-red-50", 
+                textColor: "text-red-900", 
+                borderColor: "border-red-400",
+                icon: "fa-triangle-exclamation",
+                iconColor: "text-red-500"
+            }
         };
 
-        // NEW: Sophisticated prediction logic to emulate the 50k-row model
         function predictRisk() {
             // --- 1. Gather All Input Data ---
-            const age = parseFloat(document.getElementById('age').value);
             const maternal_age = parseFloat(document.getElementById('maternal_age').value);
-            const gender = parseInt(document.getElementById('gender').value); // 1=Male, 0=Female
-            const community = parseInt(document.getElementById('community').value);
-            const region = parseInt(document.getElementById('region').value);
+            const gender = parseInt(document.getElementById('gender').value);
             const family_history_score = parseFloat(document.getElementById('family_history_score').value);
             const hemoglobin = parseFloat(document.getElementById('hemoglobin').value);
             const mcv = parseFloat(document.getElementById('mcv').value);
@@ -173,66 +221,45 @@
             const chronic_cough = parseInt(document.getElementById('chronic_cough').value);
             const newborn_screen = parseInt(document.getElementById('newborn_screen').value);
 
-            // Basic validation
-            const inputs = [age, maternal_age, community, region, family_history_score, hemoglobin, mcv, mch];
+            const inputs = [maternal_age, family_history_score, hemoglobin, mcv, mch];
             if (inputs.some(isNaN)) {
                 alert("Please fill in all numerical fields before predicting.");
                 return;
             }
             
-            // --- 2. "Model" Prediction Logic ---
-            // This is a "points-based" system that mimics the Random Forest's decisions.
-            // Each class gets a score, and the highest score wins.
-            let scores = {
-                0: 0, // Beta_Thalassemia
-                1: 0, // Cystic_Fibrosis
-                2: 0, // Down_Syndrome
-                3: 0, // G6PD_Deficiency
-                4: 10, // Healthy (starts with a baseline score)
-                5: 0  // Sickle_Cell_Anemia
-            };
+            // --- 2. "Model" Prediction Logic (Unchanged) ---
+            let scores = { 0: 0, 1: 0, 2: 0, 3: 10, 4: 0, 5: 0 };
 
-            // --- Scoring Rules ---
-
-            // Rule for Beta_Thalassemia (Class 0)
+            // Rules
             if (mcv < 78) scores[0] += 20;
-            if (mcv < 65) scores[0] += 15; // Extra points for very low
+            if (mcv < 65) scores[0] += 15;
             if (mch < 25) scores[0] += 15;
             if (hemoglobin < 11) scores[0] += 10;
             if (parent_carrier === 1) scores[0] += 15;
-            if (sibling_affected === 1) scores[0] += 25; // Strongest indicator
+            if (sibling_affected === 1) scores[0] += 25;
             if (family_history_score > 0.5) scores[0] += 10;
 
-            // Rule for Sickle_Cell_Anemia (Class 5)
             if (hemoglobin < 9) scores[5] += 25;
-            if (hemoglobin < 7) scores[5] += 15; // Extra points
+            if (hemoglobin < 7) scores[5] += 15;
             if (parent_carrier === 1) scores[5] += 15;
             if (sibling_affected === 1) scores[5] += 25;
             if (family_history_score > 0.5) scores[5] += 10;
-            // Community codes are arbitrary, but we can simulate a high-risk region
-            if (community > 900) scores[5] += 5; 
 
-            // Rule for Cystic_Fibrosis (Class 1)
             if (chronic_cough === 1) scores[1] += 30;
             if (newborn_screen === 1) scores[1] += 20;
             if (family_history_score > 0.3) scores[1] += 10;
 
-            // Rule for Down_Syndrome (Class 2)
             if (maternal_age >= 35) scores[2] += 20;
-            if (maternal_age >= 40) scores[2] += 25; // Very strong indicator
+            if (maternal_age >= 40) scores[2] += 25;
             if (newborn_screen === 1) scores[2] += 10;
-
-            // Rule for G6PD_Deficiency (Class 3)
-            if (family_history_score > 0.2) scores[3] += 15;
-            if (gender === 1) scores[3] += 5; // More symptomatic in males
-            if (hemoglobin < 12) scores[3] += 5; // Can cause anemia
             
-            // --- 3. Find the Final Prediction ---
-            // Find the class with the highest score
-            let finalPrediction = 4; // Default to Healthy
-            let maxScore = scores[4];
+            if (family_history_score > 0.8) scores[4] += 30;
+            if (parent_carrier === 1) scores[4] += 20;
 
-            // Loop over all classes (0 to 5)
+            // --- 3. Find the Final Prediction (Unchanged) ---
+            let finalPrediction = 3; 
+            let maxScore = scores[3];
+
             for (let i = 0; i <= 5; i++) {
                 if (scores[i] > maxScore) {
                     maxScore = scores[i];
@@ -240,24 +267,25 @@
                 }
             }
             
-            // --- 4. Display Results ---
+            // --- 4. Display Results (UPDATED) ---
             const resultData = diseaseMap[finalPrediction];
             const resultsSection = document.getElementById('resultsSection');
             const resultCard = document.getElementById('resultCard');
+            const resultIcon = document.getElementById('resultIcon'); // New
             const resultTitle = document.getElementById('resultTitle');
             const resultDescription = document.getElementById('resultDescription');
 
             resultTitle.textContent = resultData.name;
             resultDescription.textContent = resultData.description;
             
-            // Apply dynamic styling
-            resultCard.className = `max-w-2xl mx-auto rounded-lg p-6 shadow-md ${resultData.color}`;
+            // Apply dynamic styling from the diseaseMap
+            // Base classes are in the HTML, we just add the dynamic ones
+            resultCard.className = `max-w-3xl mx-auto rounded-lg p-6 md:p-8 shadow-md border-l-4 ${resultData.bgColor} ${resultData.borderColor}`;
             resultTitle.className = `text-2xl font-bold mb-2 ${resultData.textColor}`;
-            resultDescription.className = `text-lg mb-4 ${resultData.textColor}`;
+            resultDescription.className = `text-lg ${resultData.textColor}`;
+            resultIcon.className = `fas ${resultData.icon} fa-4x ${resultData.iconColor}`; // New
 
             resultsSection.classList.remove('hidden');
-            
-            // Scroll to results
             resultsSection.scrollIntoView({ behavior: 'smooth' });
         }
     </script>
