@@ -267,10 +267,3 @@ The model predicts one of six possible outcomes:
 ## 📄 License
 
 This project is provided as-is for educational and research purposes.
-
-
----
-
-**Happy predicting! 🧬**
-
-Let us know if you deploy GeneticGuard to the cloud or integrate it with new clinical data sources.
