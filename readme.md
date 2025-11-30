@@ -163,20 +163,6 @@ npm run dev
 npm start
 ```
 
-**Key Environment Variables** (`backend/.env`):
-
-```env
-PORT=5000
-MONGO_URI=mongodb://127.0.0.1:27017/genetic_guard
-ENABLE_MEMORY_DB=true          # falls back to in-memory Mongo when Atlas/local DB is unreachable
-MONGO_TIMEOUT_MS=5000
-JWT_SECRET=your-super-secret-jwt-key-here
-ML_SERVICE_URL=http://localhost:5001/predict
-CLIENT_URL=http://localhost:3000
-```
-
-> ⚠️ Set `ENABLE_MEMORY_DB=false` in production so the API fails fast instead of using the temporary in-memory database. When enabled, the backend automatically boots a throwaway Mongo instance (powered by `mongodb-memory-server`) whenever it cannot connect to the primary URI—handy for local development and demos.
-
 #### 3. Frontend (Port 3000)
 
 ```bash
@@ -190,12 +176,6 @@ npm start
 ```
 
 The app will automatically open in your browser at `http://localhost:3000`.
-
-**Optional:** Create `frontend/.env` if you need to change the API base URL:
-
-```env
-REACT_APP_API_BASE_URL=http://localhost:5000/api
-```
 
 ---
 
@@ -249,62 +229,6 @@ The predictor collects the following clinical metrics:
 
 ---
 
-## 🛠️ Troubleshooting
-
-| Symptom | Solution |
-|---------|----------|
-| `ML service error` in React | Confirm Flask server is running on `http://localhost:5001` and `ML_SERVICE_URL` in backend `.env` matches |
-| `MongoDB Connected` never appears | Verify `MONGO_URI` points to a reachable instance and MongoDB is running locally or remotely. With `ENABLE_MEMORY_DB=true`, the server will automatically use an in-memory fallback, but data will reset on every restart. |
-| `Invalid value for ...` when predicting | Ensure form inputs stay within allowed ranges (Family history score 0–1, positive lab values, etc.) |
-| 401 responses after refresh | Token likely expired or missing. Clear `localStorage` token and log in again |
-| Frontend won't start | Check if port 3000 is already in use. Kill the process or change the port |
-| Backend connection errors | Verify MongoDB is running and the connection string in `.env` is correct |
-| ML API not responding | Ensure Python virtual environment is activated and all dependencies are installed |
-
----
-
-## 📝 Useful Commands
-
-### Backend
-```bash
-npm run dev        # Development mode with nodemon (auto-reload)
-npm start          # Production mode
-```
-
-### Frontend
-```bash
-npm start          # Development server (auto-opens browser)
-npm run build      # Production build
-npm test           # Run tests
-```
-
-### ML Service
-```bash
-python train_model.py     # Retrain model and save new artifacts
-python app.py            # Run Flask API server
-```
-
-### Stopping Services
-
-**Windows PowerShell:**
-```powershell
-# Stop all Node.js processes
-Get-Process | Where-Object {$_.ProcessName -eq "node"} | Stop-Process -Force
-
-# Stop all Python processes
-Get-Process | Where-Object {$_.ProcessName -eq "python"} | Stop-Process -Force
-```
-
-**macOS/Linux:**
-```bash
-# Find and kill processes by port
-lsof -ti:3000 | xargs kill -9  # Frontend
-lsof -ti:5000 | xargs kill -9  # Backend
-lsof -ti:5001 | xargs kill -9  # ML API
-```
-
----
-
 ## 🔐 Security Notes
 
 - JWT tokens are stored in `localStorage` (consider httpOnly cookies for production)
@@ -340,41 +264,10 @@ The model predicts one of six possible outcomes:
 
 ---
 
-## 🚢 Deployment Considerations
-
-### Frontend
-- Build production bundle: `npm run build`
-- Serve static files from `build/` directory
-- Configure environment variables for production API URL
-
-### Backend
-- Set `NODE_ENV=production`
-- Use process manager (PM2, systemd, etc.)
-- Configure MongoDB connection for production
-- Set secure `JWT_SECRET`
-
-### ML API
-- Deploy Flask app using Gunicorn or similar WSGI server
-- Ensure model files (`genetic_model.joblib`, `label_encoder.joblib`) are included
-- Configure CORS for production domains
-
----
-
 ## 📄 License
 
 This project is provided as-is for educational and research purposes.
 
----
-
-## 🤝 Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
----
-
-## 📧 Support
-
-For issues, questions, or suggestions, please open an issue on the repository.
 
 ---
 
