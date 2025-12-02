@@ -33,7 +33,7 @@ services:
     environment:
       - PORT=5000
       - MONGO_URI=mongodb://mongo:27017/genetic_guard
-      - JWT_SECRET=change_this_secret_in_production
+      - JWT_SECRET=${JWT_SECRET:-change_this_secret_in_production}
       - ML_SERVICE_URL=http://ml-api:5001/predict
       - CLIENT_URL=http://localhost:8080
       - ENABLE_MEMORY_DB=false

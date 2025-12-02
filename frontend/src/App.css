@@ -45,6 +45,7 @@
   font-weight: 800;
   text-decoration: none;
   background: linear-gradient(135deg, var(--accent-secondary) 0%, var(--accent-primary) 100%);
+  background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   letter-spacing: -0.02em;
@@ -167,7 +168,8 @@
 }
 
 .hero-visual {
-  height: clamp(400px, 50vh, 600px);
+  height: 100%;
+  min-height: 500px;
   width: 100%;
   position: relative;
   display: flex;
@@ -189,6 +191,7 @@ h1 {
   font-weight: 800;
   margin-bottom: 1.5rem;
   background: linear-gradient(to bottom right, #ffffff, #cbd5e1);
+  background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   letter-spacing: -0.03em;
@@ -237,6 +240,7 @@ h1 {
   margin-bottom: 1rem;
   color: var(--text-primary);
   background: linear-gradient(to right, #fff, #94a3b8);
+  background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -402,6 +406,7 @@ h1 {
   font-size: 2rem;
   margin-bottom: 0.5rem;
   background: linear-gradient(to right, #fff, #94a3b8);
+  background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   text-align: center;
@@ -590,6 +595,7 @@ input[type="range"] {
   background: var(--bg-secondary);
   border-radius: 3px;
   outline: none;
+  appearance: none;
   -webkit-appearance: none;
 }
 
@@ -815,6 +821,7 @@ input[type="range"]::-webkit-slider-thumb:hover {
   font-size: 3rem;
   font-weight: 800;
   background: linear-gradient(to bottom right, #fff, #94a3b8);
+  background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   margin: 0.5rem 0;
