@@ -2,7 +2,7 @@ FROM python:3.10-slim
 
 WORKDIR /app
 
-# Install system dependencies if needed (e.g., for scikit-learn/pandas build)
+# Install system dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
     && rm -rf /var/lib/apt/lists/*
@@ -10,8 +10,16 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY . .
+# Create a non-root user for Hugging Face Spaces
+RUN useradd -m -u 1000 user
+USER user
+ENV HOME=/home/user \
+    PATH=/home/user/.local/bin:$PATH
 
-EXPOSE 5001
+WORKDIR $HOME/app
 
-CMD ["python", "app.py"]
+COPY --chown=user . $HOME/app
+
+EXPOSE 7860
+
+CMD ["gunicorn", "--bind", "0.0.0.0:7860", "app:app"]
