@@ -18,7 +18,11 @@ const SignupPage = () => {
       await signup(formData.username, formData.email, formData.password);
       navigate('/predict');
     } catch (err) {
-      setError(err?.response?.data?.msg || 'Unable to create account. Please try a different email.');
+      if (err?.response?.data?.errors && err.response.data.errors.length > 0) {
+        setError(err.response.data.errors[0].msg);
+      } else {
+        setError(err?.response?.data?.msg || 'Unable to create account. Please try a different email.');
+      }
     }
   };
 

@@ -126,80 +126,21 @@ def predict():
     except ValueError as exc:
         return jsonify({'error': str(exc)}), 400
 
-    # --- Rule-Based Logic from index.html ---
-    # 0: Beta_Thalassemia
-    # 1: Cystic_Fibrosis
-    # 2: Down_Syndrome
-    # 3: Healthy
-    # 4: Huntington's Disease
-    # 5: Sickle_Cell_Anemia
+    # --- ML Model Inference ---
+    # Convert features dictionary to a DataFrame to maintain correct feature order
+    df = pd.DataFrame([features], columns=FEATURE_ORDER)
 
-    scores = {0: 0, 1: 0, 2: 0, 3: 10, 4: 0, 5: 0}
+    # Perform prediction using the loaded model
+    pred_encoded = model.predict(df)[0]
+    pred_proba = model.predict_proba(df)[0]
     
-    mcv = features['MCV_fL']
-    mch = features['MCH_pg']
-    hemoglobin = features['Hemoglobin_Level_g/dL']
-    parent_carrier = features['Is_Parent_Carrier']
-    sibling_affected = features['Is_Sibling_Affected']
-    family_history = features['Family_History_Score']
-    chronic_cough = features['Has_Chronic_Cough']
-    newborn_screen = features['Newborn_Screen_Flag']
-    maternal_age = features['Maternal_Age_at_Birth']
-
-    # Rules
-    if mcv < 78: scores[0] += 20
-    if mcv < 65: scores[0] += 15
-    if mch < 25: scores[0] += 15
-    if hemoglobin < 11: scores[0] += 10
-    if parent_carrier == 1: scores[0] += 15
-    if sibling_affected == 1: scores[0] += 25
-    if family_history > 0.5: scores[0] += 10
-
-    if hemoglobin < 9: scores[5] += 25
-    if hemoglobin < 7: scores[5] += 15
-    if parent_carrier == 1: scores[5] += 15
-    if sibling_affected == 1: scores[5] += 25
-    if family_history > 0.5: scores[5] += 10
-
-    if chronic_cough == 1: scores[1] += 30
-    if newborn_screen == 1: scores[1] += 20
-    if family_history > 0.3: scores[1] += 10
-
-    if maternal_age >= 35: scores[2] += 20
-    if maternal_age >= 40: scores[2] += 25
-    if newborn_screen == 1: scores[2] += 10
+    # Map numerical prediction back to original class name
+    normalized_prediction = le.inverse_transform([pred_encoded])[0]
     
-    if family_history > 0.8: scores[4] += 30
-    if parent_carrier == 1: scores[4] += 20
-
-    # Find max score
-    final_prediction_idx = 3
-    max_score = scores[3]
-    
-    for i in range(6):
-        if scores[i] > max_score:
-            max_score = scores[i]
-            final_prediction_idx = i
-
-    # Map index to class name
-    idx_to_class = {
-        0: 'Beta_Thalassemia',
-        1: 'Cystic_Fibrosis',
-        2: 'Down_Syndrome',
-        3: 'Healthy',
-        4: 'Huntingtons_Disease',
-        5: 'Sickle_Cell_Anemia'
-    }
-
-    normalized_prediction = idx_to_class[final_prediction_idx]
-    
-    # Calculate pseudo-probabilities (normalize scores)
-    total_score = sum(scores.values())
+    # Calculate probabilities for all classes
     class_probs = {}
-    for i in range(6):
-        class_name = idx_to_class[i]
-        prob = scores[i] / total_score if total_score > 0 else 0
-        class_probs[class_name] = round(prob, 4)
+    for i, class_name in enumerate(le.classes_):
+        class_probs[class_name] = round(float(pred_proba[i]), 4)
 
     confidence = class_probs[normalized_prediction]
 

@@ -1,0 +1,26 @@
+services:
+  - type: web
+    name: genetic-guard-ml-api
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app --bind 0.0.0.0:$PORT
+    envVars:
+      - key: PORT
+        value: 5001
+      - key: FLASK_DEBUG
+        value: 0
+
+  - type: web
+    name: genetic-guard-backend
+    env: node
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: MONGO_URI
+        sync: false
+      - key: JWT_SECRET
+        generateValue: true
+      - key: ML_SERVICE_URL
+        value: https://genetic-guard-ml-api.onrender.com/predict
+      - key: CLIENT_URL
+        sync: false

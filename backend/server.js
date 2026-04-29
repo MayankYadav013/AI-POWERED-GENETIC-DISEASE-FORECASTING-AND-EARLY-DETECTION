@@ -8,7 +8,9 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // Connect Database
-connectDB();
+if (require.main === module) {
+  connectDB();
+}
 
 // Middleware
 const defaultOrigins = (process.env.CLIENT_URL || 'http://localhost:3000')
@@ -34,4 +36,8 @@ app.use((err, _req, res, _next) => {
   res.status(err.status || 500).json({ msg: err.message || 'Internal server error' });
 });
 
-app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
+if (require.main === module) {
+  app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
+}
+
+module.exports = app;
