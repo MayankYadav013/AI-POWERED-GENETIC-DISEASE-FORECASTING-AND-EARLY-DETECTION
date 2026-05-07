@@ -86,11 +86,6 @@ const selectFields = [
     label: 'Chronic cough present?',
     options: ['No', 'Yes'],
   },
-  {
-    id: 'newbornScreen',
-    label: 'Newborn screening flag',
-    options: ['Not_Detected', 'Detected'],
-  },
 ];
 
 const initialFormState = {
@@ -106,17 +101,79 @@ const initialFormState = {
   newbornScreen: '',
 };
 
-const sampleValues = {
-  maternalAge: '28',
-  gender: 'Female',
-  hemoglobin: '13.2',
-  mcv: '85',
-  mch: '30',
-  familyHistoryScore: '0.35',
-  isParentCarrier: 'No',
-  isSiblingAffected: 'No',
-  hasChronicCough: 'No',
-  newbornScreen: 'Not_Detected',
+const samples = {
+  Beta_Thalassemia: {
+    maternalAge: '19',
+    gender: 'Male',
+    hemoglobin: '9.2',
+    mcv: '66.0',
+    mch: '21.8',
+    familyHistoryScore: '0.55',
+    isParentCarrier: 'No',
+    isSiblingAffected: 'No',
+    hasChronicCough: 'No',
+    newbornScreen: 'Detected',
+  },
+  Cystic_Fibrosis: {
+    maternalAge: '38',
+    gender: 'Female',
+    hemoglobin: '14.5',
+    mcv: '93.6',
+    mch: '28.6',
+    familyHistoryScore: '0.15',
+    isParentCarrier: 'No',
+    isSiblingAffected: 'No',
+    hasChronicCough: 'Yes',
+    newbornScreen: 'Not_Detected',
+  },
+  Down_Syndrome: {
+    maternalAge: '35',
+    gender: 'Male',
+    hemoglobin: '13.5',
+    mcv: '73.1',
+    mch: '31.8',
+    familyHistoryScore: '0.97',
+    isParentCarrier: 'No',
+    isSiblingAffected: 'No',
+    hasChronicCough: 'No',
+    newbornScreen: 'Not_Detected',
+  },
+  G6PD_Deficiency: {
+    maternalAge: '26',
+    gender: 'Female',
+    hemoglobin: '14.0',
+    mcv: '87.4',
+    mch: '29.9',
+    familyHistoryScore: '0.78',
+    isParentCarrier: 'Yes',
+    isSiblingAffected: 'No',
+    hasChronicCough: 'No',
+    newbornScreen: 'Not_Detected',
+  },
+  Sickle_Cell_Anemia: {
+    maternalAge: '28',
+    gender: 'Male',
+    hemoglobin: '7.9',
+    mcv: '72.4',
+    mch: '24.9',
+    familyHistoryScore: '0.32',
+    isParentCarrier: 'No',
+    isSiblingAffected: 'No',
+    hasChronicCough: 'No',
+    newbornScreen: 'Not_Detected',
+  },
+  Healthy: {
+    maternalAge: '28',
+    gender: 'Male',
+    hemoglobin: '13.6',
+    mcv: '95.4',
+    mch: '32.5',
+    familyHistoryScore: '0.0',
+    isParentCarrier: 'No',
+    isSiblingAffected: 'No',
+    hasChronicCough: 'No',
+    newbornScreen: 'Not_Detected',
+  }
 };
 
 const PredictorPage = () => {
@@ -156,7 +213,7 @@ const PredictorPage = () => {
         isParentCarrier: formData.isParentCarrier,
         isSiblingAffected: formData.isSiblingAffected,
         hasChronicCough: formData.hasChronicCough,
-        newbornScreen: formData.newbornScreen,
+        newbornScreen: formData.newbornScreen || 'Not_Detected',
       };
       const { data } = await api.post('/predict', payload);
       setResult(data);
@@ -169,8 +226,11 @@ const PredictorPage = () => {
     }
   };
 
-  const handleSampleFill = () => {
-    setFormData(sampleValues);
+  const handleSampleFill = (e) => {
+    const key = e.target.value;
+    if (key && samples[key]) {
+      setFormData(samples[key]);
+    }
   };
 
   const sliderValue = (fieldId) => {
@@ -189,9 +249,20 @@ const PredictorPage = () => {
             <h2>Genetic disease risk assessment</h2>
             <p className="form-subtitle">Track each metric against a guided scale to keep the model inputs precise.</p>
           </div>
-          <button type="button" className="btn-secondary btn-pill sample-btn" onClick={handleSampleFill}>
-            Use sample values
-          </button>
+          <select 
+            className="btn-secondary btn-pill sample-select" 
+            onChange={handleSampleFill}
+            defaultValue=""
+            style={{ appearance: 'auto', cursor: 'pointer' }}
+          >
+            <option value="" disabled>Load sample values...</option>
+            <option value="Beta_Thalassemia">β-Thalassemia</option>
+            <option value="Cystic_Fibrosis">Cystic Fibrosis</option>
+            <option value="Down_Syndrome">Down Syndrome</option>
+            <option value="G6PD_Deficiency">G6PD Deficiency</option>
+            <option value="Sickle_Cell_Anemia">Sickle Cell Anemia</option>
+            <option value="Healthy">Healthy Profile</option>
+          </select>
         </div>
 
         {hasPredicted && !result && (
@@ -273,7 +344,7 @@ const PredictorPage = () => {
           <ul>
             <li><strong>Blood indices</strong> (Hb, MCV, MCH) quantify oxygen carrying capacity and cell morphology signatures.</li>
             <li><strong>Family clustering</strong> via the history score, carrier, and sibling flags keeps the model sensitive to hereditary prevalence.</li>
-            <li><strong>Phenotype triggers</strong> like chronic cough or newborn screens capture neonatal and respiratory cues early.</li>
+            <li><strong>Phenotype triggers</strong> like chronic cough capture neonatal and respiratory cues early.</li>
           </ul>
         </div>
 
