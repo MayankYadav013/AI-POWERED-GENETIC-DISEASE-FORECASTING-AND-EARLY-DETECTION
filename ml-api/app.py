@@ -32,7 +32,7 @@ CONDITION_DESCRIPTIONS = {
     'Beta_Thalassemia': 'Inherited blood disorder affecting hemoglobin production, often identified by low MCV/MCH.',
     'Cystic_Fibrosis': 'Genetic disease that causes thick mucus buildup impacting lungs and digestion.',
     'Down_Syndrome': 'A chromosomal condition (Trisomy 21) associated with developmental and physical traits.',
-    'Huntingtons_Disease': 'The model suggests a potential risk based on family history. Genetic testing is the standard for diagnosis.',
+    'G6PD_Deficiency': 'An inherited metabolic disorder characterized by red blood cell breakdown (hemolysis) when exposed to certain triggers.',
     'Sickle_Cell_Anemia': 'Hemoglobin disorder where red blood cells take a sickle shape, leading to pain and anemia.',
     'Healthy': 'No elevated risk detected for the tracked genetic conditions.'
 }
