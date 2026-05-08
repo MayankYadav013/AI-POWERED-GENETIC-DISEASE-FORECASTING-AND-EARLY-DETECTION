@@ -21,7 +21,7 @@ const readinessWidgets = [
 const checklist = [
   { title: '1. Capture vitals', detail: 'Hemoglobin, MCV, MCH, newborn screen results' },
   { title: '2. Validate history', detail: 'Carrier status, sibling conditions, chronic cough' },
-  { title: '3. Review prediction', detail: 'Download risk profile & guidance summary' },
+  { title: '3. Review prediction', detail: 'Get result' },
 ];
 
 const LandingPage = () => {

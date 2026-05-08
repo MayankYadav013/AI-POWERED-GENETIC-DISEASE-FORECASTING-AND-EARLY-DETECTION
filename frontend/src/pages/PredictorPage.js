@@ -86,6 +86,11 @@ const selectFields = [
     label: 'Chronic cough present?',
     options: ['No', 'Yes'],
   },
+  {
+    id: 'newbornScreen',
+    label: 'Newborn screen flag',
+    options: ['Not_Detected', 'Detected'],
+  },
 ];
 
 const initialFormState = {
